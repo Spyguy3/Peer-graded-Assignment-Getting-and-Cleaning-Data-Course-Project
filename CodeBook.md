@@ -1,31 +1,53 @@
 
-Getting and Cleaning Data Coursera Course peer reviewed assignment The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set.
+CodeBook
+This code book describes the  data and transformations used by run_analysis.R and the variables to produce the output of Tidy.txt
 
-Review criteria less The submitted data set is tidy.
+The Data Source
+Original Data Source
+Original Description of the Data Set
 
-The Github repo contains the required scripts.
+Data Set Information
 
-GitHub contains a code book that modifies and updates the available codebooks with the data to indicate all the variables and summaries calculated, along with units, and any other relevant information.
+Input Data Set
 
-The README that explains the analysis files is clear and understandable.
+X_train.txt contains variable features that are intended for training.
+y_train.txt contains the activities corresponding to X_train.txt.
+subject_train.txt contains information on the subjects from whom data is collected.
+X_test.txt contains variable features that are intended for testing.
+y_test.txt contains the activities corresponding to X_test.txt.
 
-The work submitted for this project is the work of the student who submitted it.
+subject_test.txt contains information on the subjects from whom data is collected.
+activity_labels.txt contains metadata on the different types of activities.
+features.txt contains the name of the features in the data sets.
 
-Getting and Cleaning Data Course Project less The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit: 1) a tidy data set as described below, 2) a link to a Github repository with your script for performing the analysis, and 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected.
+Transformations
+The following are the transformations:
 
-One of the most exciting areas in all of data science right now is wearable computing - see for example this article . Companies like Fitbit, Nike, and Jawbone Up are racing to develop the most advanced algorithms to attract new users. The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+X_train.txt is read into table train_features
+y_train.txt is read into table train_activity
+subject_train.txt is read into table train_subject
+X_test.txt is read into table test_features
 
-http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+y_test.txt is read into table test_activity
 
-Here are the data for the project:
+subject_test.txt is read into table test_subject
+features.txt is read into table FeatureNames
+activity_labels.txt is read into table ActivityLabels
 
-https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+The respective files for Train and Test are Subject, Features and Activity are merged into the corresponding Subject, Activity and Features
 
-You should create one R script called run_analysis.R that does the following.
+The Subject, Activity and Features are merged to create ‘CompleteData’
+Indices of columns that contain std or mean, activity and subject are taken into requiredColumns .
+extractedData is created with data from columns in filterCols
 
-Merges the training and the test sets to create one data set.
+Activity column in extractedData is updated with descriptive names of activities taken from ActivityLabels. Activity column is expressed as a factor variable.
+Acronyms in variable names in extractedData, like ‘Acc’, ‘Gyro’, ‘Mag’, ’t’ and ‘f’ are replaced with descriptive labels such as ‘Accelerometer’, ‘Gyroscpoe’, ‘Magnitude’, ‘Time’ and ‘Frequency’.
 
-Extracts only the measurements on the mean and standard deviation for each measurement.
+tidyData is created as a set with average for each activity and subject of extractedData. Entries in tidyData are ordered based on activity and subject.
+Finally, the data in tidyData is written into Tidy.txt
+
+Output Data Set
+The output data tidy.txt is a space delimited value file. The header line contains the names of the variables. It contains the mean and standard deviation values of the data contained in the input files
 
 Uses descriptive activity names to name the activities in the data set
 
